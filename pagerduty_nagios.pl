@@ -239,6 +239,10 @@ sub enqueue_event {
 	# make sure we get the event written out within the Nagios notification
 	# timeout.  If we get killed off after that, it isn't a big deal.
 
+  if ($event{"SERVICESTATE"} eq "OK") {
+    sleep(15);
+  }
+
 	my $filename = sprintf("$opt_queue_dir/pd_%u_%u.txt", time(), $$);
 	my $fd;
 
