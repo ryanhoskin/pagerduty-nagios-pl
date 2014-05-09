@@ -165,7 +165,7 @@ sub flush_queue {
 
 		if ($opt_verbose) {
 			my $s = $req->as_string;
-			print STDERR "Request:\n$s\n";
+			syslog(LOG_ERR, "Request: %s", $s);
 		}
 
 		my $resp = $ua->request($req);
@@ -173,6 +173,7 @@ sub flush_queue {
 		if ($opt_verbose) {
 			my $s = $resp->as_string;
 			print STDERR "Response:\n$s\n";
+			syslog(LOG_ERR, "Response: %s", $s);
 		}
 
 		if ($resp->is_success) {
